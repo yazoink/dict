@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# deps: jq, curl
+# dependencies: jq, curl
 
 usage () {
-    printf "dict by yazoink (2023)\nusage: dictionary [word1] [word2] [etc]\n"
+    printf "dict by yazoink (2023)\nusage: dict [word1] [word2] [etc]\n"
 }
 
 defineall() {
@@ -12,23 +12,23 @@ defineall() {
         if [[ "$jsondata" == *"phonetic"* ]]; then
             definitions=($(getdefinitions "$jsondata"))
             phonetic=$(getphonetic "$jsondata")
-            printf "%s %s\n" "${!i}" "$phonetic"
+            printf "\033[1m%s\033[0m \033[0;31m%s\033[0m\n" "${!i}" "$phonetic"
             counter=1
             for ((j=0; j<${#definitions[@]}; j++)); do
-                printf "%s) %s\n" "$counter" "$(echo "${definitions[j]}" | sed 's/-/ /g')"
+                printf "\033[1;36m%s)\033[0m %s\n" "$counter" "$(echo "${definitions[j]}" | sed 's/-/ /g')"
                 ((counter++))
             done
             if [[ "$i" != "$#" ]]; then
                 printf "\n"
             fi
         else
-            printf "%s could not be found in the dictionary.\n" "${!i}"
+            printf "\033[1m%s\033[0m could not be found in the dictionary.\n" "${!i}"
         fi
     done
 }
 
 getphonetic () {
-    phonetic=$(echo "$jsondata" | jq -r '.[0].phonetic')
+    phonetic=$(echo "$jsondata" | jq -r '.[0].phonetics.[1].text')
     if [[ "$phonetic" == "null" ]]; then
         echo ""
     else
