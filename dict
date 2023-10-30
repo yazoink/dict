@@ -10,7 +10,7 @@ defineall() {
     for ((i=1; i<=$#; i++)); do
         jsondata="$(curl -s https://api.dictionaryapi.dev/api/v2/entries/en/"${!i}")"
         if [[ "$jsondata" == *"phonetic"* ]]; then
-            definitions=($(getdefinitions "$jsondata"))
+            definitions=("$(getdefinitions "$jsondata")")
             phonetic=$(getphonetic "$jsondata")
             printf "\033[1m%s\033[0m \033[0;31m%s\033[0m\n" "${!i}" "$phonetic"
             counter=1
@@ -32,7 +32,7 @@ getphonetic () {
     if [[ "$phonetic" == "null" ]]; then
         echo ""
     else
-        echo "("$phonetic")"
+        echo "($phonetic)"
     fi
 }
 
