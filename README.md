@@ -16,3 +16,8 @@ or
 ### dependencies
 - jq
 - curl
+
+### installation
+`$ git clone https://github.com/yazoink/dict`  
+`$ cd dict`  
+`$ ./install.sh`  
