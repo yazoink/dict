@@ -5,3 +5,7 @@ a dictionary in the cli using the [free dictionary api](https://dictionaryapi.de
 
 ### usage
 usage: dict [word1] [word2] [etc]
+
+### dependencies
+- jq
+- curl
